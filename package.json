@@ -1,0 +1,22 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "start write server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/changxianglin/api-server.git"
+  },
+  "author": "xianglin <281532612@qq.com> (http://zhourong.host/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/changxianglin/api-server/issues"
+  },
+  "homepage": "https://github.com/changxianglin/api-server#readme",
+  "dependencies": {
+    "koa": "^3.2.1"
+  }
+}
