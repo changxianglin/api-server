@@ -1,23 +1,24 @@
 const Koa = require('koa')
+const Router = require('koa-router')
 const app = new Koa()
+const router = new Router()
 
-app.use(async (ctx) => {
-    if(ctx.url === '/') {
-        ctx.body = 'This is Home'
-    } else if(ctx.url === '/users') {
-        if(ctx.method === 'GET') {
-            ctx.body = 'This users list'
-        } else if(ctx.method === 'POST') {
-            ctx.body = 'Create user'
-        } else {
-            ctx.status = 405
-        }
-    } else if(ctx.url.match(/\/users\/\w+/)) {
-        const userId = ctx.url.match(/\/users\/(\w+)/)[1]
-        ctx.body = `This userId ${userId}`
-    } else {
-        ctx.status = 404
-    }
+router.get('/', (ctx) => {
+    ctx.body = 'This is Home'
 })
+
+router.get('/users', (ctx) => {
+    ctx.body = 'This is usersList'
+})
+
+router.post('/users', (ctx) => {
+    ctx.body = 'This create user api'
+})
+
+router.get('/users/:id', (ctx) => {
+    ctx.body = `This user ${ctx.params.id}`
+})
+
+app.use(router.routes())
 
 app.listen(3000)
