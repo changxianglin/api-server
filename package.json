@@ -19,6 +19,7 @@
   "homepage": "https://github.com/changxianglin/api-server#readme",
   "dependencies": {
     "koa": "^3.2.1",
+    "koa-bodyparser": "^4.4.1",
     "koa-router": "^14.0.0"
   },
   "devDependencies": {
