@@ -5,27 +5,34 @@ const app = new Koa()
 const router = new Router()
 const usersRouter = new Router({prefix: '/users'})
 
+const db = [{name: 'Jack',}]
+
 router.get('/', (ctx) => {
     ctx.body = 'This is Home'
 })
 
 usersRouter.get('/', (ctx) => {
-    ctx.body = [{name: 'Json'}, {name: 'Jim'}]
+    ctx.body = db
 })
 
 usersRouter.post('/', (ctx) => {
-    ctx.body = {name: 'Json'}
+    db.push(ctx.request.body)
+    ctx.body = ctx.request.body
 })
 
 usersRouter.get('/:id', (ctx) => {
-    ctx.body = {name: 'Json'}
+    ctx.body = db[ctx.params.id * 1]
 })
 
 usersRouter.put('/:id', (ctx) => {
-    ctx.body = {name: 'Json2'}
+    db[ctx.params.id * 1] = ctx.request.body
+    ctx.body = ctx.request.body
 })
 
 usersRouter.delete('/:id', (ctx) => {
+    console.log(ctx.params.id * 1)
+    db.splice(ctx.params.id * 1, 1)
+    console.log(db)
     ctx.status = 204
 })
 
