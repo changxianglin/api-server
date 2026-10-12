@@ -3,7 +3,16 @@ const bodyparser = require('koa-bodyparser')
 const app = new Koa()
 const routing = require('./routes')
 
-
+app.use(async (ctx, next) => {
+    try {
+        await next()
+    } catch (error) {
+        ctx.status = error.status || error.statusCode || 500
+        ctx.body = {
+            message: error.message
+        }
+    }
+})
 app.use(bodyparser())
 routing(app)
 
