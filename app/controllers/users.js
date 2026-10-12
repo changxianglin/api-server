@@ -5,6 +5,9 @@ class UsersCtl {
         ctx.body = db
     }
     findById(ctx) {
+        if(ctx.params.id * 1 >= db.length) {
+            ctx.throw(412)
+        }
         ctx.body = db[ctx.params.id * 1]
     }
     create(ctx) {
