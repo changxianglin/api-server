@@ -4,7 +4,8 @@
   "description": "start write server",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app/index.js",
+    "start": "cross-env NODE_ENV=production node app/index.js",
+    "dev": "cross-env nodemon app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,9 +21,11 @@
   "dependencies": {
     "koa": "^3.2.1",
     "koa-bodyparser": "^4.4.1",
+    "koa-json-error": "^3.1.2",
     "koa-router": "^14.0.0"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.14"
   }
 }
