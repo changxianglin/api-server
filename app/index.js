@@ -5,8 +5,10 @@ const parameter = require('koa-parameter')
 const mongoose = require('mongoose')
 const app = new Koa()
 const routing = require('./routes')
+const { connectionStr } = require('./config')
 
-mongoose.connect('')
+mongoose.connect(connectionStr)
+mongoose.connection.on('error', console.error)
 
 app.use(error({
     postFormat: (e, {stack, ...rest}) => process.env.NODE_ENV === 'production' ? rest : { stack, ...stack }
