@@ -1,39 +1,32 @@
-const db = [{name: 'Jack',}]
+const User = require('../models/user.js')
 
 class UsersCtl {
-    find(ctx) {
-        ctx.body = db
+    async find(ctx) {
+        ctx.body = await User.find()
     }
-    findById(ctx) {
-        if(ctx.params.id * 1 >= db.length) {
-            ctx.throw(412)
-        }
-        ctx.body = db[ctx.params.id * 1]
+    async findById(ctx) {
+        const user = await User.findById(ctx.params.id)
+        if(!user) { ctx.throw(404, 'unIncluded user')}
+        ctx.body = user
     }
-    create(ctx) {
+    async create(ctx) {
         ctx.verifyParams({
-            name: {type: 'string', required: true},
-            age: {type: 'number', required: false}
+            name: {type: 'string', required: true}
         })
-        db.push(ctx.request.body)
-        ctx.body = ctx.request.body
+        const user = await new User(ctx.request.body).save()
+        ctx.body = user
     }
-    update(ctx) {
-        if(ctx.params.id * 1 >= db.length) {
-            ctx.throw(412)
-        }
+    async update(ctx) {
         ctx.verifyParams({
-            name: {type: 'string', required: true},
-            age: {type: 'number', required: false}
+            name: {type: 'string', required: true}
         })
-        db[ctx.params.id * 1] = ctx.request.body
-        ctx.body = ctx.request.body
+        const user = await User.findByIdAndUpdate(ctx.params.id, ctx.request.body)
+        if(!user) { ctx.throw(404, 'unIncluded user')}
+        ctx.body = user
     }
-    delete(ctx) {
-        if(ctx.params.id * 1 >= db.length) {
-            ctx.throw(412)
-        }
-        db.splice(ctx.params.id * 1, 1)
+    async delete(ctx) {
+        const user = await User.findByIdAndDelete(ctx.params.id)
+        if(!user) { ctx.throw(404, 'unIncluded user')}
         ctx.status = 204
     }
 }
