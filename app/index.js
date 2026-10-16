@@ -7,7 +7,9 @@ const app = new Koa()
 const routing = require('./routes')
 const { connectionStr } = require('./config')
 
-mongoose.connect(connectionStr)
+mongoose.connect(connectionStr, {
+    autoSelectFamily: false,
+})
 mongoose.connection.on('error', console.error)
 
 app.use(error({
