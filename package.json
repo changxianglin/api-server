@@ -23,6 +23,7 @@
     "koa": "^3.2.1",
     "koa-bodyparser": "^4.4.1",
     "koa-json-error": "^3.1.2",
+    "koa-jwt": "^4.0.4",
     "koa-parameter": "^3.0.1",
     "koa-router": "^14.0.0",
     "mongoose": "^9.11.2"
