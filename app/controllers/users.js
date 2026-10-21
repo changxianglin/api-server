@@ -7,7 +7,9 @@ class UsersCtl {
         ctx.body = await User.find()
     }
     async findById(ctx) {
-        const user = await User.findById(ctx.params.id)
+        const { fields } = ctx.request.query
+        const selectFields = fields.split(';').filter(f => f).map(f => ' +' + f).join()
+        const user = await User.findById(ctx.params.id).select(selectFields)
         if(!user) { ctx.throw(404, 'unIncluded user')}
         ctx.body = user
     }

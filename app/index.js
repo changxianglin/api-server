@@ -12,7 +12,9 @@ const { connectionStr } = require('./config')
 mongoose.connect(connectionStr, {
     autoSelectFamily: false,
 })
-mongoose.connection.on('error', console.error)
+.then(() => console.log('MongoDB success'))
+.catch(err => console.error('MongoDB failed:', err));
+
 
 app.use(koaStatic(path.join(__dirname, 'public')))
 app.use(error({
