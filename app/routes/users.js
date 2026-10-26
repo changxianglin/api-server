@@ -4,7 +4,7 @@ const router = new Router({prefix: '/users'})
 const { 
     find, findById, create, 
     update, delete: del, checkOwner,
-    login } = require('../controllers/users')
+    login, listFollowing, following } = require('../controllers/users')
 const { secret } = require('../config')
 
 const auth = jwt({ secret })
@@ -20,5 +20,9 @@ router.patch('/:id', auth, checkOwner, update)
 router.delete('/:id', auth, checkOwner, del)
 
 router.post('/login', login)
+
+router.get('/:id/following', listFollowing)
+
+router.put('/following/:id', auth, following)
 
 module.exports = router
