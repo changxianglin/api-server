@@ -65,6 +65,11 @@ class UsersCtl {
         if(!user) {ctx.throw(404)}
         ctx.body = user.following
     }
+    async checkUserExist(ctx, next) {
+        const user = await User.findById(ctx.params.id)
+        if(!user) { ctx.throw(404, 'user no exist!!!')}
+        await next()
+    }
     async following(ctx) {
         const me = await User.findById(ctx.state.user._id).select('+following')
         if(!me.following.map(id => id.toString()).includes(ctx.params.id)) {
